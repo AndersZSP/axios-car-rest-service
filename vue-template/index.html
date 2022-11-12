@@ -5,16 +5,59 @@
     <link rel="stylesheet" href="CSS/style.css">
     <!--VUE-->
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9. november test eksamen</title>
+    <title>axios + vue + rest</title>
 </head>
+
+
+
+
+
 <body>
+    <h1>Cars Rest with Vue</h1>
+
+
     <div id="app">
+        <button class="btn btn-primary" v-on:click="GetAllCars">Get All</button>
+        <br>
+        <button class="btn btn-warning" v-on:click="cleanList">Empty the list</button>
+        <br>
+        <input v-model="getCarId" type="number" placeholder="User ID">
+        
+        <button class="btn btn-secondary" v-on:click="getByCarId(getCarId)">Get by car ID</button>
+        <br>
+        <br>
+        <input type="number" v-model="carId" placeholder="Car ID">
+        <br>
+        <input type="text" placeholder="Car Vendor" v-model="carVendor">
+        <br>
+        <input type="text" v-model="carModel" placeholder="Car Model">
+        <br>
+        <input type="number" v-model="carPrice" placeholder="Price">
+        <br>
+        <button class="btn btn-success" v-on:click="PostCar" >Add car to list</button>
+        <br>
+        <br>
+        <input type="number" v-model="deleteCarId" placeholder="ID of car to be deleted">
+        <br>
+        <button class="btn btn-danger" v-on:click="deleteByCarId(deleteCarId)">Delete car</button>
+        <br>
 
+        <div v-if="error" style="color: red">error: {{error}}</div>
+        <div style="color: green">Statuscode: {{statuscode}}</div>
+        <h1>Car List</h1>
 
-
+        <ul v-if="carslist.length > 0">
+            <li v-for="car in carslist" v-bind:key="car.id">
+                Vendor: {{car.vendor}} Model: {{car.model}} : id {{car.id}}
+            </li>
+        </ul>       
+        <div v-else style="font-style: italic;">No cars to show</div>
+    </div>
 
     </div>
 
